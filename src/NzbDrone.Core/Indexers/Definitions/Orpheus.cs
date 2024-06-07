@@ -308,7 +308,7 @@ namespace NzbDrone.Core.Indexers.Definitions
                     foreach (var torrent in result.Torrents)
                     {
                         // skip releases that cannot be used with freeleech tokens when the option is enabled
-                        if (_settings.UseFreeleechToken is (int)OrpheusUseFreeleechTokens.Preferred or (int)OrpheusUseFreeleechTokens.Required && !torrent.CanUseToken)
+                        if (_settings.UseFreeleechToken == (int)OrpheusUseFreeleechTokens.Required && !torrent.CanUseToken)
                         {
                             continue;
                         }
@@ -358,7 +358,7 @@ namespace NzbDrone.Core.Indexers.Definitions
                 else
                 {
                     // skip releases that cannot be used with freeleech tokens when the option is enabled
-                    if (_settings.UseFreeleechToken is (int)OrpheusUseFreeleechTokens.Preferred or (int)OrpheusUseFreeleechTokens.Required && !result.CanUseToken)
+                    if (_settings.UseFreeleechToken == (int)OrpheusUseFreeleechTokens.Required && !result.CanUseToken)
                     {
                         continue;
                     }
@@ -444,7 +444,7 @@ namespace NzbDrone.Core.Indexers.Definitions
                 .AddQueryParam("id", torrentId);
 
             // Orpheus fails to download if usetoken=0 so we need to only add if we will use one
-            if (_settings.UseFreeleechToken is (int)OrpheusUseFreeleechTokens.Preferred or (int)OrpheusUseFreeleechTokens.Required && canUseToken)
+            if (_settings.UseFreeleechToken == (int)OrpheusUseFreeleechTokens.Required && canUseToken)
             {
                 url = url.AddQueryParam("usetoken", "1");
             }

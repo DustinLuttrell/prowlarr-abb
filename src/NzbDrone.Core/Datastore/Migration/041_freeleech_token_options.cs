@@ -36,7 +36,7 @@ namespace NzbDrone.Core.Datastore.Migration
                         {
                             var optionValue = settings.Value<bool>("useFreeleechToken") switch
                             {
-                                true => 1, // Preferred
+                                true => 2, // Required
                                 _ => 0 // Never
                             };
 

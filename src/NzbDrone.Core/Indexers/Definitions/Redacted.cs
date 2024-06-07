@@ -307,7 +307,7 @@ namespace NzbDrone.Core.Indexers.Definitions
                     foreach (var torrent in result.Torrents)
                     {
                         // skip releases that cannot be used with freeleech tokens when the option is enabled
-                        if (_settings.UseFreeleechToken is (int)RedactedUseFreeleechTokens.Preferred or (int)RedactedUseFreeleechTokens.Required && !torrent.CanUseToken)
+                        if (_settings.UseFreeleechToken == (int)RedactedUseFreeleechTokens.Required && !torrent.CanUseToken)
                         {
                             continue;
                         }
@@ -363,7 +363,7 @@ namespace NzbDrone.Core.Indexers.Definitions
                 else
                 {
                     // skip releases that cannot be used with freeleech tokens when the option is enabled
-                    if (_settings.UseFreeleechToken is (int)RedactedUseFreeleechTokens.Preferred or (int)RedactedUseFreeleechTokens.Required && !result.CanUseToken)
+                    if (_settings.UseFreeleechToken == (int)RedactedUseFreeleechTokens.Required && !result.CanUseToken)
                     {
                         continue;
                     }
@@ -454,7 +454,7 @@ namespace NzbDrone.Core.Indexers.Definitions
                 .AddQueryParam("action", "download")
                 .AddQueryParam("id", torrentId);
 
-            if (_settings.UseFreeleechToken is (int)RedactedUseFreeleechTokens.Preferred or (int)RedactedUseFreeleechTokens.Required && canUseToken)
+            if (_settings.UseFreeleechToken == (int)RedactedUseFreeleechTokens.Required && canUseToken)
             {
                 url = url.AddQueryParam("usetoken", "1");
             }
